@@ -22,7 +22,8 @@ public class TableTest {
         wd.findElement(By.cssSelector("#customers tr:nth-child(7) td:last-child"));
         wd.findElement(By.cssSelector("tbody tr:nth-child(4)"));
         wd.findElement(By.cssSelector("#customers td:nth-child(3)"));
-
+        System.out.println(wd.findElements(By.cssSelector("#customer tr")).size());
+        System.out.println(wd.findElements(By.cssSelector("#customer th")).size());
     }
 
 

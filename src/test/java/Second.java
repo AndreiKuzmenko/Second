@@ -17,16 +17,31 @@ public class Second {
     @Test
     public void test(){
         // Old strategies
+        wd.findElement(By.tagName("a"));
+        wd.findElement(By.cssSelector("a"));
+        wd.findElement(By.xpath("//a"));
+
         wd.findElement(By.id("root"));
         wd.findElement(By.className("container"));
 
         wd.findElement(By.cssSelector("#root"));
         wd.findElement(By.cssSelector(".container"));
 
+        wd.findElement(By.xpath("//*[@id='root']"));
+        wd.findElement(By.xpath("//*[@class='container']"));
+
         wd.findElement(By.cssSelector("[href='/login']"));
         wd.findElement(By.cssSelector("[href*='og']"));
         wd.findElement(By.cssSelector("[href^='/login']"));
         wd.findElement(By.cssSelector("[href$='gin']"));
+
+        wd.findElement(By.xpath("//*[@href='/login']"));
+        wd.findElement(By.xpath("//*[contains(@href,'log')]"));
+
+
+
+
+
 
         wd.findElement(By.cssSelector("[href='/about']"));
         wd.findElement(By.cssSelector(".active"));
