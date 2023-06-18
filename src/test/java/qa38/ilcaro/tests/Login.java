@@ -1,47 +1,39 @@
 package qa38.ilcaro.tests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-
-public class Login {
-    WebDriver wd;
+public class Login extends TestBase {
     @BeforeMethod
-    public void setUp(){
-        wd = new ChromeDriver();
-        wd.manage().window().maximize();
-        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        wd.navigate().to("https://ilcarro.web.app/");
+    public void preCondition(){
+        if(!app.getUserHelper().isElementDisplayed(By.xpath("//a[.=' Log in ']"))){
+            app.getUserHelper().clickLogOut();
 
+        }
     }
+
     @Test
-    public void positLogTest() throws InterruptedException {
-        wd.findElement(By.xpath("//a[contains(.,'Log in')]")).click();
-        wd.findElement(By.cssSelector("#email")).click();
-        wd.findElement(By.cssSelector("#email")).clear();
-        wd.findElement(By.cssSelector("#email")).sendKeys("ref7777@gmail.com");
-
-        wd.findElement(By.id("password")).click();
-        wd.findElement(By.id("password")).clear();
-        wd.findElement(By.id("password")).sendKeys("Qwerty234_*");
-
-        wd.findElement(By.xpath("//button[@type='submit']")).click();
-        Thread.sleep(5000);
+    public void positiveLoginTest() {
+        //clickLogIn
+        // wd.findElement(By.id("")).click();
+        app.getUserHelper().clickLogIn();
+        app.getUserHelper().fillLoginForm("qwe777@gmail.com", "123@Qwe123");
+        app.getUserHelper().clickSubmitButton();
+        app.getUserHelper().pause(3000);
+        Assert.assertTrue(app.getUserHelper().isElementPresent(By.xpath("//div[@class='dialog-container']")));
 
     }
-    public void click (By locator){
-        wd.findElement(locator).click();
 
 
+
+    @Test
+    public void loginNegativeTest() {
+        app.getUserHelper().login("qwe777@gmail.com", "123@Qwe123");
+        Assert.assertTrue(app.getUserHelper().isElementPresent(By.xpath("//a[.=' Log in ']")));
     }
-    @AfterMethod
-    public void tearDown(){
 
-    }
+
+
 }
